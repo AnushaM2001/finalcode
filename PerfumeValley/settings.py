@@ -16,7 +16,7 @@ from pathlib import Path
 SHIPROCKET_EMAIL="anu525495@gmail.com"
 SHIPROCKET_PASSWORD="tiYTExSq1C9o$EJ@"
 # Celery Settings
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_IMPORTS = ('admin_panel.tasks', 'user_panel.tasks')
@@ -116,7 +116,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("redis", 6379)],  # Redis container name
+            "hosts": [("127.0.0.1", 6379)],  # Redis container name
         },
     },
 }
@@ -231,6 +231,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # Redis Settings
-REDIS_HOST = 'redis'
+REDIS_HOST = '127.0.0.1'
 REDIS_PORT = 6379
 REDIS_DB = 0

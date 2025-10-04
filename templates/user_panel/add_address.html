@@ -35,14 +35,25 @@
         }
 
         .header-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    position: relative;       /* allows absolute positioning inside */
+    padding: 0 40px;          /* space for the Reset link on right */
+    text-align: center;       /* center the heading */
+}
 
+.header-line h4.form-heading {
+    margin: 0;
+    display: inline-block;
+}
+
+.header-line a {
+    position: absolute;       /* position Reset link absolutely */
+    right: 0;                 /* stick to the right */
+    top: 50%;                 /* vertical center */
+    transform: translateY(-50%);
+}
         .form-heading {
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
         }
 
         .form-control {
@@ -157,20 +168,37 @@
         .header-line a:hover, .header-line a:focus {
             background: #f8d7da;
         }
+        .back-button {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            margin-top: 1px;
+            margin-right: 90%;
+
+        }
+        .back-button:hover {
+            color: #007bff; /* Change color on hover */
+        }
+        
+
     </style>
 </head>
 <body>
 <div class="container mt-4 mb-4">
+   
+         <a href="javascript:void(0);" onclick="window.history.back();" class="back-button">← Back</a>
     <form method="post" id="address-form" autocomplete="off">
         {% csrf_token %}
-        <div class="header-line mb-3">
-             {% if form.instance.id %}
-            <h4 class="form-heading">Update Address</h4>
-            {% else %}
-            <h4 class="form-heading">Add New Address</h4>
-            {% endif %}
-            <a href="#" onclick="document.getElementById('address-form').reset();" class="text-danger text-decoration-none">Reset</a>
-        </div>
+       <div class="header-line mb-3">
+    {% if form.instance.id %}
+        <h4 class="form-heading mb-0">Update Address</h4>
+    {% else %}
+        <h4 class="form-heading mb-0">Add New Address</h4>
+    {% endif %}
+    <a href="#" onclick="document.getElementById('address-form').reset();" class="text-danger text-decoration-none">Reset</a>
+</div>
+
+
 
         <input type="hidden" name="next" value="{{ request.GET.next|default:request.META.HTTP_REFERER }}">
 

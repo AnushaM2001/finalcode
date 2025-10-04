@@ -1497,11 +1497,7 @@ html, body {
 .carousel-control-next {
   display: none !important;
 }
-@media(min-width:1400px){
-    .container{
-        max-width:1160px !important;
-    }
-}
+
 
 </style>
 <style>
@@ -1517,6 +1513,12 @@ html, body {
 @keyframes blinker {
     50% {
         opacity: 0;
+    }
+}
+
+@media(min-width:1400px){
+    .container{
+        max-width:1160px !important;
     }
 }
 
@@ -1869,6 +1871,49 @@ Festival Offer Modal
 </script>
 
 
+<style>
+    .scroll-container {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        background: #F7E7E8;
+        padding: 10px 0;
+        border-top: 1px solid #B3B3B3;
+        border-bottom: 1px solid #B3B3B3;
+    }
+
+    .scroll-content {
+        display: inline-block;
+        white-space: nowrap;
+        animation: scrollText 16s linear infinite;
+    }
+
+    /* Infinite scroll: duplicate content for seamless effect */
+    .scroll-content span {
+        display: inline-block;
+        margin-right: 2rem;
+    }
+
+    @keyframes scrollText {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+</style>
+<script>
+    // Duplicate scroll text for infinite effect
+    document.addEventListener('DOMContentLoaded', function () {
+        var scrollContent = document.querySelector('.scroll-content');
+        if (scrollContent) {
+            scrollContent.innerHTML += scrollContent.innerHTML;
+        }
+    });
+</script>
+
 <!-- scroll -->
 <div class="scroll-container">
     <div class="scroll-content">
@@ -1912,209 +1957,172 @@ Festival Offer Modal
 
 <!-- circle -->
 <section class="section-container mobile-scroll1">
-  <div class="container mt-5 mb-2">
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="scroll-wrapper circle-row" id="subcategoryScroll">
-          <!-- Circle 1 -->
-          {% for subcategory in subcategories %}
-          {% if subcategory.sub_image %}
-          <div class="circle-container me-2 mb-2">
-            <div class="clickable-circle circle" data-url="{% url 'products_list' %}?subcategory={{ subcategory.id }}">
-              <img src="{{ subcategory.sub_image.url }}" alt="{{ subcategory.name }}">
+    <div class="container mt-5 mb-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <!-- Carousel Wrapper -->
+                <div class="carousel-wrapper" style="position:relative;">
+                    <!-- Scrollable subcategory circles -->
+                    <div class="scroll-wrapper circle-row" id="subcategoryScroll">
+                        {% for subcategory in subcategories %}
+                        {% if subcategory.sub_image %}
+                        <div class="circle-container me-2 mb-2">
+                            <div class="clickable-circle circle" 
+                                     data-url="{% url 'products_list' %}?subcategory={{ subcategory.id }}">
+                                <img src="{{ subcategory.sub_image.url }}" alt="{{ subcategory.name }}">
+                            </div>
+                            <div class="arc-main"></div>
+                            <div class="arc-opposite"></div>
+                            <div class="circle-text">{{ subcategory.name }}</div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <!-- dots under the row -->
+                   
+                </div>
             </div>
-            <div class="arc-main"></div>
-            <div class="arc-opposite"></div>
-            <div class="circle-text">{{ subcategory.name }}</div>
-          </div>
-          {% else %}
-          <h1>not found</h1>
-          {% endif %}
-          {% endfor %}
         </div>
-      
-      </div>
     </div>
-  </div>
-    <!-- dots -->
-      
-</section>  <div class="scroll-dots" id="subcategoryDots"></div>
+</section>
+
+ <div class="scroll-dots" id="subcategoryDots">
+    {% for subcategory in subcategories %}
+    <span class="{% if forloop.first %}active{% endif %}"></span>
+    {% endfor %}
+ </div>
+
 
 <section class="section-container mobile-scroll1">
-  <div class="container mt-5 mb-3">
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="scroll-wrapper circle-row" id="categoryScroll">
-          <!-- Circle 1 -->
-          {% for category in section_categories %}
-          {% if category.gif_file %}
-          <div class="circle-container me-2 mb-2">
-            <div class="clickable-circle circle" data-url="{% url 'products_list' %}?category={{ category.id }}">
-              <img src="{{ category.gif_file.url }}" alt="{{ category.name }}">
+    <div class="container mt-3 mb-4 ">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="carousel-wrapper" style="position:relative;">
+                    <div class="scroll-wrapper circle-row" id="categoryScroll">
+                        {% for category in section_categories %}
+                        {% if category.gif_file %}
+                        <div class="circle-container me-2 mb-2">
+                            <div class="clickable-circle circle" data-url="{% url 'products_list' %}?category={{ category.id }}">
+                                <img src="{{ category.gif_file.url }}" alt="{{ category.name }}">
+                            </div>
+                            <div class="arc-main"></div>
+                            <div class="arc-opposite"></div>
+                            <div class="circle-text">{{ category.name }}</div>
+                        </div>
+                        {% else %}
+                        <h1>not found</h1>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <!-- dots under the row -->
+                   
+                </div>
             </div>
-            <div class="arc-main"></div>
-            <div class="arc-opposite"></div>
-            <div class="circle-text">{{ category.name }}</div>
-          </div>
-          {% else %}
-          <h1>not found</h1>
-          {% endif %}
-          {% endfor %}
         </div>
-        <!-- dots -->
-     
-      </div>
     </div>
-  </div>
-</section>   <div class="scroll-dots" id="categoryDots"></div>
+</section> 
+ <div class="scroll-dots" id="categoryDots">
+        {% for category in section_categories %}
+        <span class="{% if forloop.first %}active{% endif %}"></span>
+        {% endfor %}
+ </div> 
 
 <style>
-  @media (max-width: 768px) {
     @media (max-width: 768px) {
-    .scroll-wrapper {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE and Edge */
+        .scroll-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .scroll-dots {
+            display: block;
+            text-align: center;
+            margin-top: 6px;
+            padding: 10px 0;
+            background: #F7E7E8;
+            border-radius: 20px;
+        }
+        .scroll-dots span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 4px;
+            border-radius: 50%;
+            background-color: #f7e7e8;
+            border: 1.5px solid #981945;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .scroll-dots span.active {
+            background-color: #981945;
+            transform: scale(1.2);
+        }
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .scroll-wrapper {
+            overflow-x: auto;
+            flex: 1;
+            scroll-behavior: smooth;
+            display: flex;
+            scrollbar-width: none;
+        }
+        .scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
     }
-
-    .scroll-wrapper::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+    @media (min-width: 769px) {
+        .scroll-dots {
+            display: none;
+        }
     }
-
-    .circle-container {
-      flex: 0 0 auto;
-      scroll-snap-align: center;
-     
-    }
-
-    .scroll-dots {
-      display: block;
-      text-align: center;
-      margin-top: 6px;
-      padding: 10px 0;
-    }
-
-    .scroll-dots span {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 4px;
-      border-radius: 50%;
-      background-color: #c7a4c4;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .scroll-dots span.active {
-      background-color: #981945; /* active dot color */
-      transform: scale(1.2);
-    }
-  }
-
-  @media (min-width: 769px) {
-    .scroll-dots {
-      display: none;
-    }
-    
-    .circle-container {
-      width: auto;
-    }
-  }
-}
 </style>
 
 <script>
-function initScrollDots(wrapperId, dotsId) {
-  const wrapper = document.getElementById(wrapperId);
-  const dotsContainer = document.getElementById(dotsId);
-  const items = wrapper.querySelectorAll('.circle-container');
-  
-  // Clear existing dots
-  dotsContainer.innerHTML = '';
+document.addEventListener('DOMContentLoaded', function() {
+    function setupScrollDots(scrollId, dotsId) {
+        const scrollEl = document.getElementById(scrollId);
+        const dots = document.getElementById(dotsId).querySelectorAll('span');
+        if (!scrollEl || !dots.length) return;
 
-  // Create one dot per item
-  items.forEach((_, i) => {
-    const dot = document.createElement('span');
-    if (i === 0) dot.classList.add('active');
-    
-    // Make dots clickable to scroll to specific item
-    dot.addEventListener('click', () => {
-      const item = items[i];
-      const scrollPosition = item.offsetLeft - (wrapper.offsetWidth / 2) + (item.offsetWidth / 2);
-      
-      wrapper.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-      });
-    });
-    
-    dotsContainer.appendChild(dot);
-  });
+        function updateDots() {
+            const children = scrollEl.children;
+            let activeIdx = 0;
+            const parentRect = scrollEl.getBoundingClientRect();
+            for (let i = 0; i < children.length; i++) {
+                const rect = children[i].getBoundingClientRect();
+                if (rect.left >= parentRect.left && rect.right <= parentRect.right) {
+                    activeIdx = i;
+                    break;
+                }
+            }
+            dots.forEach((dot, idx) => dot.classList.toggle('active', idx === activeIdx));
+        }
 
-  const dots = dotsContainer.querySelectorAll('span');
+        scrollEl.addEventListener('scroll', updateDots);
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', function() {
+                scrollEl.children[idx].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            });
+        });
 
-  // Update active dot on scroll
- function updateActiveDot() {
-  const scrollLeft = wrapper.scrollLeft;
-  const wrapperCenter = scrollLeft + wrapper.offsetWidth / 2;
-
-  let activeIndex = 0;
-  let minDistance = Infinity;
-
-  items.forEach((item, i) => {
-    const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-    const distance = Math.abs(wrapperCenter - itemCenter);
-
-    if (distance < minDistance) {
-      minDistance = distance;
-      activeIndex = i;
+        updateDots(); // initial
     }
-  });
 
-  // Update active dot
-  dots.forEach((dot, i) => {
-    if (i === activeIndex) {
-      dot.classList.add('active');
-    } else {
-      dot.classList.remove('active');
-    }
-  });
-}
-
-
-  // Throttle scroll events for better performance
-  let scrollTimeout;
-  wrapper.addEventListener('scroll', () => {
-    if (!scrollTimeout) {
-      scrollTimeout = setTimeout(() => {
-        scrollTimeout = null;
-        updateActiveDot();
-      }, 100);
-    }
-  });
-
-  // Initial update
-  updateActiveDot();
-}
-
-// Initialize for both sections
-document.addEventListener('DOMContentLoaded', () => {
-  initScrollDots('subcategoryScroll', 'subcategoryDots');
-  initScrollDots('categoryScroll', 'categoryDots');
-  
-  // Add click handlers for circles
-  document.querySelectorAll('.clickable-circle').forEach(circle => {
-    circle.addEventListener('click', function() {
-      const url = this.getAttribute('data-url');
-      if (url) {
-        window.location.href = url;
-      }
-    });
-  });
+    // Initialize all sections
+    setupScrollDots('subcategoryScroll', 'subcategoryDots');
+    setupScrollDots('categoryScroll', 'categoryDots');
+    setupScrollDots('occasionsScroll', 'occasionsDots');
 });
+
 </script>
 
 <!-- Circle 2 -->
@@ -2722,35 +2730,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <section class="section-container mobile-scroll1" style="background-color: #FBF0EF;">
-    <div class="container mb-3">
+    <div class="container mt-5 mb-4">
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="circle-row">
-                    <!-- Circle 1 -->
-                    {% for sub in occasions %}
-                    {% if sub.sub_image %}
-                    <div class="circle-container me-2 mb-2">
-                        <div class="clickable-circle circle"
-                            data-url="{% url 'products_list' %}?subcategory={{ sub.id }}">
-                            <img src="{{ sub.sub_image.url }}" alt="{{ sub.name }}">
+                <!-- Carousel Wrapper -->
+                <div class="carousel-wrapper" style="position:relative;">
+                    <div class="scroll-wrapper circle-row" id="occasionsScroll">
+                        {% for occasion in occasions %}
+                        {% if occasion.sub_image %}
+                        <div class="circle-container me-2 mb-2">
+                            <div class="clickable-circle circle" 
+                                 data-url="{% url 'products_list' %}?subcategory={{ occasion.id }}">
+                                <img src="{{ occasion.sub_image.url }}" alt="{{ occasion.name }}">
+                            </div>
+                            <div class="arc-main"></div>
+                            <div class="arc-opposite"></div>
+                            <div class="circle-text">{{ occasion.name }}</div>
                         </div>
-                        <div class="arc-main"></div>
-                        <div class="arc-opposite"></div>
-                        <div class="circle-text">{{ sub.name }}</div>
+                        {% endif %}
+                        {% endfor %}
                     </div>
-                    {% endif %}
-                    {% endfor %}
-
-                    <!-- Circle 2 -->
-
-
-
-
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="scroll-dots" id="occasionsDots">
+    {% for occasion in occasions %}
+    <span class="{% if forloop.first %}active{% endif %}"></span>
+    {% endfor %}
+</div>
+
 <!-- <div class="d-flex justify-content-between align-items-center w-100 px-5" style="background-color: #FBF0EF;">
           <button class="btn custom-nav-button">
               <img src="{% static 'images2/arrow_r (2).svg' %}">

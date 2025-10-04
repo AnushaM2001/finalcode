@@ -219,23 +219,7 @@
         }
 
         /* scroll */
-        .scroll-container {
-            width: 100%; /* Full width */
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-            background: #F7E7E8;
-            
-            padding: 10px 0;
-            border-top: 1px solid #B3B3B3;
-            border-bottom: 1px solid #B3B3B3;
-        }
-
-        .scroll-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: scrollText 18s linear infinite;
-        }
+   
         .scroll-container1 {
             width: 100%; /* Full width */
             overflow: hidden;

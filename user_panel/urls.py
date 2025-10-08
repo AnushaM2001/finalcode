@@ -36,12 +36,15 @@ urlpatterns = [
 
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('international-order/', views.international_order, name='international_order'),
+    path('international-order/success/', views.international_order_success, name='international_order_success'),
 
     
     path('cart/', views.view_cart, name='view_cart'),
     path('update-cart-item/<int:item_id>/', views.update_cart_item, name='update_cart_item'),
     path('remove-cart-item/<int:item_id>/', views.remove_cart_item, name='remove_cart_item'),
     path('ajax/search/', views.search_suggestions, name='search_suggestions'),
+    path('disclaimer/',views.disclaimer,name="disclaimer"),
 
     path('',views.home1,name='home'),
 

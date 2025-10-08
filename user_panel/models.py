@@ -158,3 +158,19 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.message}"
+class InternationalOrder(models.Model):
+    Name = models.CharField(max_length=100)
+    MobileNumber = models.CharField(max_length=20)
+    Alternate_MobileNumber = models.CharField(max_length=20, blank=True, null=True)
+    Email = models.EmailField(blank=True, null=True)
+    Country = models.CharField(max_length=100)
+    Pincode = models.CharField(max_length=10)
+    City = models.CharField(max_length=100)
+    State = models.CharField(max_length=100)
+    location = models.CharField(max_length=255)
+    Building = models.CharField(max_length=255)
+    Landmark = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.Name} - {self.Country}"

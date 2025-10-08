@@ -1767,9 +1767,26 @@ def viewall_products(request, section):
         
     })
 
+from .forms import InternationalOrderForm
+
+def international_order(request):
+    if request.method == 'POST':
+        form = InternationalOrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('international_order_success')  # redirect after success
+    else:
+        form = InternationalOrderForm()
+
+    return render(request, 'user_panel/international_order.html', {'form': form})
 
 
+def international_order_success(request):
+    return render(request, 'user_panel/international_order_success.html')
 
+
+def disclaimer(request):
+    return render(request, 'user_panel/disclaimer.html')
 
 
 

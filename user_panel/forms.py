@@ -36,7 +36,41 @@ class ContactForm(forms.ModelForm):
             'message': forms.Textarea(attrs={'placeholder': 'Enter Your Message', 'class': 'form-control', 'rows': 4}),
         }
 
-    
+import re
+
+class InternationalOrderForm(forms.ModelForm):
+    class Meta:
+        model = InternationalOrder
+        fields = [
+            'Name', 'MobileNumber', 'Alternate_MobileNumber', 'Email', 'Country',
+            'Pincode', 'City', 'State', 'location', 'Building', 'Landmark'
+        ]
+        widgets = {
+            'Name': forms.TextInput(attrs={'placeholder': 'Enter Name', 'class': 'form-control'}),
+            'MobileNumber': forms.TextInput(attrs={'placeholder': 'Enter Mobile Number (with country code)', 'class': 'form-control'}),
+            'Alternate_MobileNumber': forms.TextInput(attrs={'placeholder': 'Enter Alternate Mobile Number', 'class': 'form-control'}),
+            'Email': forms.EmailInput(attrs={'placeholder': 'Enter Email', 'class': 'form-control'}),
+            'Country': forms.TextInput(attrs={'placeholder': 'Enter Country', 'class': 'form-control'}),
+            'Pincode': forms.TextInput(attrs={'placeholder': 'Enter Pincode / Zip Code', 'class': 'form-control'}),
+            'City': forms.TextInput(attrs={'placeholder': 'Enter City', 'class': 'form-control'}),
+            'State': forms.TextInput(attrs={'placeholder': 'Enter State / Province', 'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'placeholder': 'Enter Location / Area / Street', 'class': 'form-control'}),
+            'Building': forms.TextInput(attrs={'placeholder': 'Enter Building Name / Flat No.', 'class': 'form-control'}),
+            'Landmark': forms.TextInput(attrs={'placeholder': 'Enter Landmark', 'class': 'form-control'}),
+        }
+
+    def clean_MobileNumber(self):
+        mobile = self.cleaned_data.get('MobileNumber')
+        if not re.match(r'^\+?\d{7,15}$', mobile):
+            raise forms.ValidationError("Enter a valid mobile number with country code (e.g., +91XXXXXXXXXX).")
+        return mobile
+
+    def clean_Alternate_MobileNumber(self):
+        alt_mobile = self.cleaned_data.get('Alternate_MobileNumber')
+        if alt_mobile and not re.match(r'^\+?\d{7,15}$', alt_mobile):
+            raise forms.ValidationError("Enter a valid alternate mobile number.")
+        return alt_mobile
+   
 class Giftform(forms.ModelForm):
     class Meta:
         model = GiftSet

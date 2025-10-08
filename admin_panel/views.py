@@ -1568,7 +1568,8 @@ def subscription_list(request):
         'query': query,
         'selected_date': selected_date,
     })
-from user_panel.models import ContactMessage
+from user_panel.models import ContactMessage,InternationalOrder
+
 
 def contact_list(request):
     contacts = ContactMessage.objects.all()
@@ -1598,6 +1599,43 @@ def contact_list(request):
         'query': query,
         'selected_date': selected_date,
     })
+
+def International_orders(request):
+    inter_orders = InternationalOrder.objects.all()
+
+    query = request.GET.get('q', '')
+    selected_date = request.GET.get('date', '')
+
+    if query:
+        inter_orders = inter_orders.filter(
+            Q(Name__icontains=query) |
+            Q(MobileNumber__icontains=query) |
+            Q(Country__icontains=query) |
+            Q(State__icontains=query) |
+            Q(City__icontains=query) |
+            Q(Pincode__icontains=query) 
+            
+        )
+
+    if selected_date:
+        try:
+            date_obj = datetime.strptime(selected_date, '%Y-%m-%d').date()
+            inter_orders = inter_orders.filter(start_date__date=date_obj)
+        except ValueError:
+            pass
+
+    paginator = Paginator(inter_orders.order_by('-id'), 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'admin_panel/international_orders_list.html', {
+        'inter_orders': page_obj.object_list,
+        'page_obj': page_obj,
+        'query': query,
+        'selected_date': selected_date,
+    })
+
+
 #========================================================================================
 
 @admin_login_required

@@ -68,7 +68,7 @@ urlpatterns = [
 
     path('subscription_list/', subscription_list, name='subscription_list'),
     path('contact_list/', contact_list, name='contact_list'),
-
+    path('international_orders/', International_orders, name='international_orders'),
     path('orders/', orders_list, name='order_list'),
 
     path('banners/', banner_list, name='banner_list'),

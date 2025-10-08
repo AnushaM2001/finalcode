@@ -193,7 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <a href="{% url 'banner_list' %}" class="{% if request.path == '/admin-panel/banners/' %}active{% endif %}">
   <i class="bi bi-box-seam me-2"></i> Banners
 </a>  
-
  
       <a href="{% url 'video_list' %}" class="{% if request.path == '/admin-panel/videos/' %}active{% endif %}">
         <i class="bi bi-camera-video me-2"></i> Videos
@@ -202,6 +201,9 @@ document.addEventListener("DOMContentLoaded", function () {
                <a href="{% url 'order_list' %}" id="orders-link" class="{% if request.path == '/admin-panel/orders/' %}active{% endif %}">
     <i class="bi bi-card-list me-2"></i> Orders
     <span id="orders-count" class="badge bg-danger" style="display:none;">0</span>
+</a>
+ <a href="{% url 'international_orders' %}" id="" class="{% if request.path == '/admin-panel/international_orders/' %}active{% endif %}">
+    <i class="bi bi-card-list me-2"></i>International Orders
 </a>
             <a href="{% url 'user_list' %}" class="{% if request.path == '/admin-panel/users/' %}active{% endif %}">
 <i class="bi bi-person me-2"></i> Users</a>

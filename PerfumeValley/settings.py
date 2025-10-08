@@ -197,7 +197,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # settings.py
 
 # S3 Storage settings
-AWS_STORAGE_BUCKET_NAME = 'perfumevalleybucket'
+AWS_ACCESS_KEY_ID = 'AKIATZQX76YMBHPU7D7K'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'perfumevalleyworld'
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_FILE_OVERWRITE = False
@@ -231,6 +233,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # Redis Settings
-REDIS_HOST = '127.0.0.1'
+REDIS_HOST = 'redis'
 REDIS_PORT = 6379
 REDIS_DB = 0

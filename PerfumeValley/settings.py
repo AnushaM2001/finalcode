@@ -140,8 +140,9 @@ DATABASES = {
         'HOST': 'database-2.cr4y64o0iohu.eu-north-1.rds.amazonaws.com',  # Set to 'localhost' or the IP address of your PostgreSQL server
         'PORT': '3306',  # Default PostgreSQL port
         'OPTIONS': {
-          'init_command': "SET sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'",
-        }
+             'ssl': {'ssl-ca': ''},  # Disable SSL
+             'init_command': 'SET sql_mode="STRICT_TRANS_TABLES";',
+          },
     }
 }
 

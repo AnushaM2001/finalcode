@@ -137,7 +137,7 @@ DATABASES = {
         'NAME': 'PerfumeValley',  # Replace with your database name
         'USER':'admin',  # Replace with your database user
         'PASSWORD': 'Perfumevalley12345',  # Replace with your database password
-        'HOST': 'arn:aws:rds:eu-north-1:260969592344:db:database-2',  # Set to 'localhost' or the IP address of your PostgreSQL server
+        'HOST': 'database-2.cr4y64o0iohu.eu-north-1.rds.amazonaws.com',  # Set to 'localhost' or the IP address of your PostgreSQL server
         'PORT': '3306',  # Default PostgreSQL port
         'OPTIONS': {
           'init_command': "SET sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'",

@@ -16,7 +16,7 @@ from pathlib import Path
 SHIPROCKET_EMAIL="anu525495@gmail.com"
 SHIPROCKET_PASSWORD="tiYTExSq1C9o$EJ@"
 # Celery Settings
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_IMPORTS = ('admin_panel.tasks', 'user_panel.tasks')
@@ -116,7 +116,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],  # Redis container name
+            "hosts": [("redis", 6379)],  # Redis container name
         },
     },
 }
@@ -134,10 +134,10 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Use PostgreSQL backend
-        'NAME': 'perfumevalley',  # Replace with your database name
+        'NAME': 'PerfumeValley',  # Replace with your database name
         'USER':'admin',  # Replace with your database user
-        'PASSWORD': 'PerfumeValley123',  # Replace with your database password
-        'HOST': 'database-1.cbgkeq6km8n5.eu-north-1.rds.amazonaws.com',  # Set to 'localhost' or the IP address of your PostgreSQL server
+        'PASSWORD': 'Perfumevalley12345',  # Replace with your database password
+        'HOST': 'arn:aws:rds:eu-north-1:260969592344:db:database-2',  # Set to 'localhost' or the IP address of your PostgreSQL server
         'PORT': '3306',  # Default PostgreSQL port
         'OPTIONS': {
           'init_command': "SET sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'",
